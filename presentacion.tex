@@ -1,0 +1,68 @@
+\documentclass{beamer}
+
+\mode<presentation>
+{
+  \usetheme{Madrid}
+  \usecolortheme{default}
+  \usefonttheme{structurebold}
+  \setbeamertemplate{navigation symbols}{}
+  \setbeamertemplate{caption}[numbered]
+} 
+
+\usepackage[spanish]{babel}
+\usepackage[utf8x]{inputenc}
+
+\title[Detección de riesgos ambientales]{Aplicación de un método de interpolación basado en índices de solapamiento a la detección de riesgos ambientales}
+\author{Mikel Pintor Araus}
+\institute[UPNA]
+{
+  Universidad Pública de Navarra\\
+  Escuela Técnica Superior de Ingenieros Industriales y de Telecomunicación
+}
+\date{23 de julio 2014}
+
+\begin{document}
+ 
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Índice}  
+  \tableofcontents
+\end{frame}
+
+\section{Teoría de conjuntos difusos}
+
+\begin{frame}{Conjuntos difusos}
+      \begin{block}{Definición: Conjunto difuso}
+      Dado un conjunto de referencia (o universo) \emph{U}, un \emph{conjunto difuso} \emph{A} sobre \emph{U} es un conjunto tal que:\\
+      \begin{equation}
+      A=\{(u_{i},\mu_{A}(u_{i}))\arrowvert u_{i} \in U\}
+      \end{equation}
+      donde \begin{math}\mu_{A}:U\rightarrow[0,1]\end{math} es la \emph{función de pertenencia}\index{función de pertenencia} (o \emph{grado de pertenencia}) de \emph{A}.
+      \end{block}
+      	\begin{itemize}
+      	\item Introducidos por L.A. Zadeh en 1965.
+      	\item Extensión de los conjuntos clásicos:
+      		\begin{itemize}
+      			\item En los conjuntos clásicos un elemento pertenece o no pertenece al conjunto.
+      			\item En los conjuntos difusos un elemento tiene un grado de pertenencia al conjunto (cualquier valor en el rango [0,1]).
+      		\end{itemize}
+      	\item Permiten modelar información vaga o imprecisa.
+      	\end{itemize}
+\end{frame}
+
+\begin{frame}{T-normas}
+	  Las \emph{t-normas} son una clase de funciones que generalizan el mínimo ($\min(x,y)$) y ,por tanto, la conjunción clásica ($x\wedge y$):
+      \begin{block}{Definición: T-norma}
+		Una t-norma es una operación binaria \emph{T} en el intervalo $[0,1]$ que es conmutativa, asociativa, monótona y tiene el valor \emph{1} como elemento neutro. Es decir, una función $T : [0,1]^2 \rightarrow [0,1]$ tal que $\forall x,y,z \in [0,1]$:
+		\begin{enumerate}
+		   \item $T(x,y) = T(y,x)$ (Conmutatividad)
+		   \item $T(x,T(y,z)) = T(T(x,y),z)$ (Asociatividad)
+		   \item $T(x,y) \leq T(x,z)$ cuando $y \leq z$ (Monotonía)
+		   \item $T(x,1) = x$ (Elemento neutro)
+		  \end{enumerate}
+      \end{block}
+\end{frame}
+
+\end{document}
