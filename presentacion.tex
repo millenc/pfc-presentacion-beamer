@@ -12,6 +12,17 @@
 \usepackage[spanish]{babel}
 \usepackage[utf8x]{inputenc}
 
+% Gráficos
+\usepackage{tikz}
+\usetikzlibrary{shapes,shadows,arrows}
+\usepackage{pgfplots}
+\pgfplotsset{compat=newest}
+\usepackage{float}
+\usepackage{subcaption}
+
+% Captions
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+
 \title[Detección de riesgos ambientales]{Aplicación de un método de interpolación basado en índices de solapamiento a la detección de riesgos ambientales}
 \author{Mikel Pintor Araus}
 \institute[UPNA]
@@ -43,11 +54,7 @@
       \end{block}
       	\begin{itemize}
       	\item Introducidos por L.A. Zadeh en 1965.
-      	\item Extensión de los conjuntos clásicos:
-      		\begin{itemize}
-      			\item En los conjuntos clásicos un elemento pertenece o no pertenece al conjunto.
-      			\item En los conjuntos difusos un elemento tiene un grado de pertenencia al conjunto (cualquier valor en el rango [0,1]).
-      		\end{itemize}
+      	\item Extensión de los conjuntos clásicos.
       	\item Permiten modelar información vaga o imprecisa.
       	\end{itemize}
 \end{frame}
@@ -63,6 +70,108 @@
 		   \item $T(x,1) = x$ (Elemento neutro)
 		  \end{enumerate}
       \end{block}
+\end{frame}
+
+\begin{frame}{T-normas: algunos ejemplos}
+	\begin{itemize}
+		\item \bfseries Mínimo o t-norma de Gödel: $T_{G}(x,y) = \min\{x,y\}$
+		\item \bfseries Producto: $T_{P}(x,y) = x \cdot y$
+		\item \bfseries \L{}ukasiewicz: $T_{L}(x,y) = \max\{x+y-1,0\}$
+	\end{itemize}
+	\vspace{0.2cm}
+	\newlength\figureheight
+    \newlength\figurewidth 
+	\setlength\figureheight{2cm}
+	\setlength\figurewidth{3cm}
+	\input{figures/t-norms/min-3dplot.tikz}
+	\setlength\figureheight{2cm}
+	\setlength\figurewidth{3cm}
+	\input{figures/t-norms/prod-3dplot.tikz}
+	\centering
+	\setlength\figureheight{2cm}
+	\setlength\figurewidth{3cm}
+	\input{figures/t-norms/luka-3dplot.tikz}
+\end{frame}
+
+\begin{frame}{Operadores de agregación}
+	\begin{block}{Definición: operador de agregación}
+	Una función $M : [a,b]^{n} \rightarrow [a,b]$ es un operador de agregación si es monótona y no decreciente en cada una de sus componentes y además cumple que $M(a, a, \cdots,a) = a$ y $M(b, b, \cdots,b) = b$.
+	\end{block}
+	Algunos ejemplos de operadores de agregación:
+	\begin{itemize}
+		\item \bfseries Media aritmética: $M(x_{1},x_{2},\cdots,x_{n}) = \frac{1}{n}\sum\limits_{i=1}^{n}x_{i}$
+		\item \bfseries Media geométrica: $M(x_{1},x_{2},\cdots,x_{n}) = (\prod\limits_{i=1}^{n}x_{i})^{\frac{1}{n}}$
+		\item \bfseries Mediana: \normalfont Se toma el elemento central del conjunto ordenado de argumentos.
+		\item \bfseries Máximo: $M(x_{1},x_{2},\cdots,x_{n}) = \max(x_{1},x_{2},\cdots,x_{n})$
+		\item \bfseries Mínimo: $M(x_{1},x_{2},\cdots,x_{n}) = \min(x_{1},x_{2},\cdots,x_{n})$
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Funciones de solapamiento}
+Las funciones de solapamiento generalizan los operadores de intersección tales como el mínimo o, en general, las t-normas:
+	\begin{block}{Definición: función de solapamiento}
+	Una función de solapamiento es una función $G_{O} : [0,1]^{2} \rightarrow [0,1]$ que cumple:
+	\begin{enumerate}
+	   \item $G_{O}(x,y) = G_{O}(y,x) \;\; \forall \; x,y \in [0,1]$ 
+	   \item $G_{O}(x,y) = 0$ si y sólo si $x \cdot y = 0$
+	   \item $G_{O}(x,y) = 1$ si y sólo si $x \cdot y = 1$
+	   \item $G_{O}$ es creciente
+	   \item $G_{O}$ es continua
+	\end{enumerate}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Funciones de solapamiento (cont.)}
+	Algunos ejemplos de funciones de solapamiento:
+	\begin{figure}
+	\begin{subfigure}{0.45\textwidth}
+		\caption{$G_{O}(x,y) = \min\{x,y\}$}
+		\setlength\figureheight{3cm}
+		\setlength\figurewidth{4cm}
+		\input{figures/overlap-functions/overlap-min-3dplot.tikz}
+	\end{subfigure}
+	\qquad
+	\begin{subfigure}{0.45\textwidth}
+		\caption{$G_{O}(x,y) = \sqrt{x \cdot y}$}
+		\setlength\figureheight{3cm}
+		\setlength\figurewidth{4cm}
+		\input{figures/overlap-functions/overlap-sqrt-3dplot.tikz}
+	\end{subfigure}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Funciones de solapamiento (cont.)}
+	\begin{block}{Teorema: Construcción de funciones de solapamiento}
+		Una función $G_{O} : [0,1]^{2} \rightarrow [0,1]$ es una función de solapamiento si y sólo si puede ser expresada como:
+		\begin{equation}
+		G_{O}(x,y) = \frac{f(x,y)}{f(x,y) + h(x,y)}
+		\end{equation}
+		para cualesquiera $f,h: [0,1]^{2} \rightarrow [0,1]$ tales que:
+		\begin{enumerate}
+		   \item f y h son simétricas;
+		   \item f es no decreciente y h es no creciente;
+		   \item $f(x,y) = 0$ si y sólo si $min(x.y) = 0$;
+		   \item $h(x,y) = 0$ si y sólo si $min(x.y) = 1$;
+		   \item f y h son continuas
+		\end{enumerate}
+	\end{block}
+\end{frame}
+
+\begin{frame}{Funciones de solapamiento (cont.)}
+	Algunos ejemplos de construcción de funciones de solapamiento: 
+	\vspace{0.5cm}
+	\begin{enumerate}
+		\item Si $f(x,y)=min(x,y)$ y $h(x,y) = max(1-x,1-y)$ entonces: 
+		\begin{equation}
+		G_{O}(x,y) = min(x,y)
+		\end{equation}
+		\item Si $f(x,y)=\sqrt{x \cdot y}$ y $h(x,y) = max(1-x,1-y)$ entonces: 
+		\begin{equation}G_{O}(x,y) = \frac{\sqrt{x \cdot y}}{\sqrt{x \cdot y} + max(1-x,1-y)}
+		\end{equation}
+		\item Si $f(x,y)=\sqrt{x \cdot y}$ y $h(x,y) = 1 - x \cdot y $ entonces: 
+		\begin{equation}G_{O}(x,y) = \frac{\sqrt{x \cdot y}}{\sqrt{x \cdot y} + 1 - x \cdot y}
+		\end{equation}
+	\end{enumerate}
 \end{frame}
 
 \end{document}
