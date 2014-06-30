@@ -44,6 +44,7 @@
 
 \section{Teoría de conjuntos difusos}
 
+\subsection{Conjuntos difusos}
 \begin{frame}{Conjuntos difusos}
       \begin{block}{Definición: Conjunto difuso}
       Dado un conjunto de referencia (o universo) \emph{U}, un \emph{conjunto difuso} \emph{A} sobre \emph{U} es un conjunto tal que:\\
@@ -59,6 +60,7 @@
       	\end{itemize}
 \end{frame}
 
+\subsection{T-normas y operadores de agregación}
 \begin{frame}{T-normas}
 	  Las \emph{t-normas} son una clase de funciones que generalizan el mínimo ($\min(x,y)$) y ,por tanto, la conjunción clásica ($x\wedge y$):
       \begin{block}{Definición: T-norma}
@@ -107,6 +109,7 @@
 	\end{itemize}
 \end{frame}
 
+\subsection{Funciones de solapamiento}
 \begin{frame}{Funciones de solapamiento}
 Las funciones de solapamiento generalizan los operadores de intersección tales como el mínimo o, en general, las t-normas:
 	\begin{block}{Definición: función de solapamiento}
@@ -172,6 +175,61 @@ Las funciones de solapamiento generalizan los operadores de intersección tales 
 		\begin{equation}G_{O}(x,y) = \frac{\sqrt{x \cdot y}}{\sqrt{x \cdot y} + 1 - x \cdot y}
 		\end{equation}
 	\end{enumerate}
+\end{frame}
+
+\subsection{Índices de solapamiento}
+\begin{frame}{Índices de solapamiento}
+	\begin{block}{Definición: índice de solapamiento}
+		Un índice de solapamiento es una función $O : FS(U) \times FS(U) \rightarrow [0,1]$ tal que:
+		\begin{enumerate}
+		\item $O(A,B) = 0$ si y sólo si A y B tienen soportes disjuntos, es decir: 
+			\begin{equation}
+				A(u_{i}) \cdot B(u_{i}) = 0 \qquad \forall u_{i} \in U
+			\end{equation}
+		\item $O(A,B) = O(B,A)$\label{BO2}
+		\item Si $B \leq C$, entonces $O(A,B) \leq O(A,C)$\label{BO3}
+		\end{enumerate}
+	\end{block}
+	\begin{itemize}
+		\item Los índices de solapamiento proporcionan una medida de similaridad entre dos conjuntos difusos.
+		\item Muy útiles para determinar ``cómo de parecidos'' son dos conjuntos difusos.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Índices de solapamiento (cont.)}
+	\begin{block}{Teorema: construcción de índices de solapamiento}
+		\begin{enumerate}
+			\item Sea $M : [0,1]^{2} \rightarrow [0,1]$ una función de agregación tal que $M(x_{1},\cdots,x_{n}) = 0$ si y sólo si $x_{1} = \cdots = x_{n} = 0$
+			\item Sea $G_{O} : [0,1]^{2} \rightarrow [0,1]$ una función de solapamiento.
+		\end{enumerate}
+		Entonces, la función $O: F(U) \times F(U) \rightarrow [0,1]$ definida como:
+		\begin{equation}
+		O(A,B) = M(G_{O}(A(u_{1}),B(u_{1})),\cdots,G_{O}(A(u_{n}),B(u_{n})))
+		\end{equation}
+		es un índice de solapamiento.
+	\end{block}
+\end{frame}
+
+\begin{frame}{Índices de solapamiento (cont.)}
+Algunos ejemplos de construcción de índices de solapamiento:
+\begin{itemize}
+	\item Si $M = \text{Media aritmética}$ y $G_O = x \cdot y$:
+	\begin{equation}
+	O_{\pi}(A,B) = \frac{1}{n}\sum_{i=1}^{n}\mu_A(x_i) \cdot \mu_B(x_i)
+	\end{equation}
+	\item Si $M = \max(x_1,\cdots,x_n)$ y $G_O = \min(x,y)$:
+	\begin{equation}
+	O_{Z}(A,B) = \max\limits_{i=1}^{n}(\min(\mu_A(x_i),\mu_B(x_i)))
+	\end{equation}
+	%\item Si $M = \text{Media aritmética}$ y $G_O = \sqrt{x \cdot y}$:
+	%\begin{equation}
+	%O_{\sqrt{\text{ }}}(A,B) =  \frac{1}{n}\sum_{i=1}^{n}\sqrt{\mu_A(x_i)*\mu_B(x_i)}
+	%\end{equation}
+	\item Si $M = \text{Media aritmética}$ y $G_O = \sin(\frac{\pi}{2}(x \cdot y))^{\frac{1}{4}}$:
+	\begin{equation}
+	O_{sin}(A, B) = \frac{1}{n}\sum_{i=1}^{n}\sin(\frac{\pi}{2}(\mu_A(x_i) \cdot \mu_B(x_i)))^{\frac{1}{4}}
+	\end{equation}
+\end{itemize}
 \end{frame}
 
 \end{document}
