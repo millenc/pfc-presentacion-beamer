@@ -20,6 +20,12 @@
 \usepackage{float}
 \usepackage{subcaption}
 
+% Algoritmos
+\usepackage[linesnumbered]{algorithm2e}
+\renewcommand*{\algorithmcfname}{Algoritmo}
+\let\oldnl\nl% Store \nl in \oldnl
+\newcommand{\nonl}{\renewcommand{\nl}{\let\nl\oldnl}}
+
 % Captions
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
 
@@ -230,6 +236,148 @@ Algunos ejemplos de construcción de índices de solapamiento:
 	O_{sin}(A, B) = \frac{1}{n}\sum_{i=1}^{n}\sin(\frac{\pi}{2}(\mu_A(x_i) \cdot \mu_B(x_i)))^{\frac{1}{4}}
 	\end{equation}
 \end{itemize}
+\end{frame}
+
+\section{Lógica difusa}
+
+\subsection{Método de Mamdani}
+
+\begin{frame}{Método de Mamdani}
+Propuesto por Mamdani y Assilian en 1975 para realizar el control de un motor de vapor a partir de un conjunto de reglas obtenidas de operadores humanos experimentados:
+
+\begin{block}{Algoritmo: Método de Mamdani}
+	\scalebox{0.90}{
+		\begin{algorithm}[H]
+		\DontPrintSemicolon
+		\KwIn{Un conjunto de reglas $R_{i}$ ($i \in \{1,\ldots,n\}$) con varios antecedentes $A_{ij}$ ($j \in \{1,\ldots,m\}$)  y entradas escalares $x_1,\ldots,x_m$.}
+		\KwOut{\emph{B'}.}
+		\For{$i \in \{1,\ldots,n\}$} {
+		Calcular $k_i = \min(\mu_{Ai1}(x_1),\ldots,\mu_{Aim}(x_m))$ \\
+		Calcular $B_i' = \{(y,\min(B_i(y),k_i))|y \in Y\}$
+		}
+		Construir $B' = \{(y, B'(y))|y \in Y\}$ dado por: \\
+		\centering
+		\nonl $B'(y) = \max\limits_{i=1}^{n}(B_i')$.\\
+		\Return{$B'$}\;
+		\end{algorithm}
+	}
+\end{block}
+\end{frame}
+
+\subsection{Método de interpolación}
+\begin{frame}{Método de interpolación}
+\begin{itemize}
+\item Históricamente uno de los métodos más utilizados para resolver sistemas basados en reglas ha sido el \emph{método de interpolación}.
+\item  En este método se utiliza la consistencia de Zadeh $O_{Z}(A,B) = \max\limits_{i=1}^{n}(\min(\mu_A(x_i),\mu_B(x_i)))$.
+\end{itemize}
+\begin{block}{Algoritmo: Método de interpolación}
+	\scalebox{0.90}{
+		\begin{algorithm}[H]
+		\DontPrintSemicolon
+		\KwIn{Un conjunto de reglas $R_{j}$, con $j \in \{1,\ldots,n\}$, un hecho \emph{A'} y el índice de consistencia $O_{Z}$}
+		\KwOut{\emph{B'}.}
+		\For{$j \in \{1,\ldots,n\}$} {
+		Calcular $O_{Z}(A',A_{j}) = \max\limits_{x \in X}(\min(A'(x),A_{j}(x))) $
+		}
+		Construir $B' = \{(y, B'(y))|y \in Y\}$ dado por: \\
+		\centering
+		\nonl $B'(y) = \max\limits_{j=1}^{n}(\min(B_{j}(y),O_{Z}(A', A_{j})))$.\\
+		\Return{$B'$}\;
+		\end{algorithm}
+	}
+\end{block}
+\end{frame}
+
+\begin{frame}{Método de interpolación (cont.)}
+El método de interpolación se puede generalizar para utilizar cualquier índice de solapamiento y reglas con varios antecedentes:
+\begin{block}{Método de interpolación basado en índices de solapamiento}
+	\scalebox{0.80}{
+		\begin{algorithm}[H]
+		\DontPrintSemicolon
+		\KwIn{Un conjunto de reglas $R_{j}$ con varios antecedentes, con $j \in \{1,\ldots,n\}$ y un hecho \emph{A'}.}
+		\KwOut{\emph{B'}.}
+		Seleccionar un operador de agregación $M$, una t-norma \emph{T} y un índice de solapamiento \emph{O}.\\
+		\For{$i =1 \to n$} {
+		Calcular $O(A'_{i}, A_{i1}),\ldots,O(A'_{m}, A_{im})$\\
+		Calcular $k_{i} = T(O(A'_{i}, A_{i1}),\ldots,O(A'_{m}, A_{im}))$\\
+		Construir sobre el universo de referencia \emph{Y} el conjunto $K_{i} = \{(y,k_{i})|y \in Y\}$
+		}
+		Construir $B' = \{(y, B'(y))|y \in Y\}$ dado por: \\
+		\centering
+		\nonl $B'(y) = \overset{n}{\underset{i=1}{M}}(\min(K_{i},B_{i}))$.\\
+		\Return{$B'$}\;
+		\end{algorithm}
+	}
+\end{block}
+\end{frame}
+
+\section{Aplicación práctica: riesgo de incendios forestales}
+\begin{frame}{Riesgo de incendios forestales}
+Entradas (medidas por la red de sensores):
+\begin{enumerate}
+   \item \bfseries $\chi_1$ - Temperatura: \normalfont medida en grados centígrados (0ºC a 120ºC).
+   \item \bfseries $\chi_2$ - Humo: \normalfont medida en partes por millón (0 a 100ppm).
+   \item \bfseries $\chi_3$ - Luz: \normalfont medida en lux (0 a 1000 lux).
+   \item \bfseries $\chi_4$ - Humedad: \normalfont medida en partes por millón (0 a 100ppm).
+   \item \bfseries $\chi_5$ - Distancia: \normalfont medida en metros (0 a 80m).
+\end{enumerate}
+Salida:
+\begin{enumerate}
+   \item \bfseries $y$ - Riesgo de incendio: \normalfont porcentaje (0-100\%).
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\setlength\figureheight{1.35cm}
+		\setlength\figurewidth{4.5cm}
+		\input{figures/fire-detection-lang-variables/b_temp_lang_variable.tikz}
+		\caption{$\chi_1$ - Temperatura (ºC)}
+		\label{fig:temp-lang-variable}
+	\end{subfigure}
+	\qquad
+	\begin{subfigure}[b]{0.45\textwidth}
+		\setlength\figureheight{1.35cm}
+		\setlength\figurewidth{4.5cm}
+		\input{figures/fire-detection-lang-variables/b_smoke_lang_variable.tikz}
+		\caption{$\chi_2$ - Humo (ppm)}
+		\label{fig:smoke-lang-variable}
+	\end{subfigure}
+	
+	\begin{subfigure}[b]{0.45\textwidth}
+		\setlength\figureheight{1.35cm}
+		\setlength\figurewidth{4.5cm}
+		\input{figures/fire-detection-lang-variables/b_light_lang_variable.tikz}
+		\caption{$\chi_3$ - Luz (lux)}
+		\label{fig:light-lang-variable}
+	\end{subfigure}
+	\qquad
+	\begin{subfigure}[b]{0.45\textwidth}
+		\setlength\figureheight{1.35cm}
+		\setlength\figurewidth{4.5cm}
+		\input{figures/fire-detection-lang-variables/b_humidity_lang_variable.tikz}
+		\caption{$\chi_4$ - Humedad (ppm)}
+		\label{fig:humidity-lang-variable}
+	\end{subfigure}
+	
+	\begin{subfigure}[b]{0.45\textwidth}
+		\setlength\figureheight{1.35cm}
+		\setlength\figurewidth{4.5cm}
+		\input{figures/fire-detection-lang-variables/b_distance_lang_variable.tikz}
+		\caption{$\chi_5$ - Distancia (m)}
+		\label{fig:distance-lang-variable}
+	\end{subfigure}
+	\qquad
+	\begin{subfigure}[b]{0.45\textwidth}
+		\setlength\figureheight{1.35cm}
+		\setlength\figurewidth{4.5cm}
+		\input{figures/fire-detection-lang-variables/b_threat_lang_variable.tikz}
+		\caption{$y$ - Riesgo de incendio (\%)}
+		\label{fig:threat-lang-variable}
+	\end{subfigure}
+\end{figure}
 \end{frame}
 
 \end{document}
