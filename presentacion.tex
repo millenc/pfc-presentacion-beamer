@@ -18,6 +18,8 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=newest}
 \usepackage{float}
+\setlength{\abovecaptionskip}{0pt plus 0pt minus 0pt}
+\setlength{\belowcaptionskip}{0pt plus 0pt minus 0pt}
 \usepackage{subcaption}
 
 % Algoritmos
@@ -336,6 +338,7 @@ Salida:
 		\input{figures/fire-detection-lang-variables/b_temp_lang_variable.tikz}
 		\caption{$\chi_1$ - Temperatura (ºC)}
 		\label{fig:temp-lang-variable}
+		\vspace*{2mm}
 	\end{subfigure}
 	\qquad
 	\begin{subfigure}[b]{0.45\textwidth}
@@ -344,6 +347,7 @@ Salida:
 		\input{figures/fire-detection-lang-variables/b_smoke_lang_variable.tikz}
 		\caption{$\chi_2$ - Humo (ppm)}
 		\label{fig:smoke-lang-variable}
+		\vspace*{2mm}
 	\end{subfigure}
 	
 	\begin{subfigure}[b]{0.45\textwidth}
@@ -352,6 +356,7 @@ Salida:
 		\input{figures/fire-detection-lang-variables/b_light_lang_variable.tikz}
 		\caption{$\chi_3$ - Luz (lux)}
 		\label{fig:light-lang-variable}
+		\vspace*{2mm}
 	\end{subfigure}
 	\qquad
 	\begin{subfigure}[b]{0.45\textwidth}
@@ -360,14 +365,16 @@ Salida:
 		\input{figures/fire-detection-lang-variables/b_humidity_lang_variable.tikz}
 		\caption{$\chi_4$ - Humedad (ppm)}
 		\label{fig:humidity-lang-variable}
+		\vspace*{2mm}
 	\end{subfigure}
-	
+
 	\begin{subfigure}[b]{0.45\textwidth}
 		\setlength\figureheight{1.35cm}
 		\setlength\figurewidth{4.5cm}
 		\input{figures/fire-detection-lang-variables/b_distance_lang_variable.tikz}
 		\caption{$\chi_5$ - Distancia (m)}
 		\label{fig:distance-lang-variable}
+		\vspace*{2mm}
 	\end{subfigure}
 	\qquad
 	\begin{subfigure}[b]{0.45\textwidth}
@@ -376,6 +383,7 @@ Salida:
 		\input{figures/fire-detection-lang-variables/b_threat_lang_variable.tikz}
 		\caption{$y$ - Riesgo de incendio (\%)}
 		\label{fig:threat-lang-variable}
+		\vspace*{2mm}
 	\end{subfigure}
 \end{figure}
 \end{frame}
