@@ -7,6 +7,7 @@
   \usefonttheme{structurebold}
   \setbeamertemplate{navigation symbols}{}
   \setbeamertemplate{caption}[numbered]
+  \setbeamertemplate{bibliography item}{[\theenumiv]}
 } 
 
 \usepackage[spanish]{babel}
@@ -249,7 +250,7 @@ Algunos ejemplos de construcción de índices de solapamiento:
 \subsection{Método de Mamdani}
 
 \begin{frame}{Método de Mamdani}
-Propuesto por Mamdani y Assilian en 1975 para realizar el control de un motor de vapor a partir de un conjunto de reglas obtenidas de operadores humanos experimentados:
+Propuesto por Mamdani y Assilian en 1975 \cite{Mamdani1975} para realizar el control de un motor de vapor a partir de un conjunto de reglas obtenidas de operadores humanos experimentados:
 
 \begin{block}{Algoritmo: Método de Mamdani}
 	\scalebox{0.90}{
@@ -295,7 +296,7 @@ Propuesto por Mamdani y Assilian en 1975 para realizar el control de un motor de
 \end{frame}
 
 \begin{frame}{Método de interpolación (cont.)}
-El método de interpolación se puede generalizar para utilizar cualquier índice de solapamiento y reglas con varios antecedentes:
+El método de interpolación se puede generalizar para utilizar cualquier índice de solapamiento y reglas con varios antecedentes \cite{bustince2013overlap}:
 \begin{block}{Método de interpolación basado en índices de solapamiento}
 	\scalebox{0.80}{
 		\begin{algorithm}[H]
@@ -318,78 +319,111 @@ El método de interpolación se puede generalizar para utilizar cualquier índic
 \end{frame}
 
 \section{Aplicación práctica: riesgo de incendios forestales}
-\begin{frame}{Riesgo de incendios forestales}
-Entradas (medidas por la red de sensores):
-\begin{enumerate}
-   \item \bfseries $\chi_1$ - Temperatura: \normalfont medida en grados centígrados (0ºC a 120ºC).
-   \item \bfseries $\chi_2$ - Humo: \normalfont medida en partes por millón (0 a 100ppm).
-   \item \bfseries $\chi_3$ - Luz: \normalfont medida en lux (0 a 1000 lux).
-   \item \bfseries $\chi_4$ - Humedad: \normalfont medida en partes por millón (0 a 100ppm).
-   \item \bfseries $\chi_5$ - Distancia: \normalfont medida en metros (0 a 80m).
-\end{enumerate}
-Salida:
-\begin{enumerate}
-   \item \bfseries $y$ - Riesgo de incendio: \normalfont porcentaje (0-100\%).
-\end{enumerate}
+\begin{frame}{Riesgo de incendios forestales: Introducción}
+Caso práctico de aplicación de un sistema difuso basado en reglas aplicado a la detección y determinación del riesgo de incendios forestales \cite{bolourchi2013}:
+\begin{itemize}
+	\item Se despliega una \emph{red de sensores inalámbricos} en la zona en la que se quiere monitorizar el riesgo de incendios (bosques, terreno montañoso, zonas rurales, etc.).
+	\item La red de sensores mide magnitudes tales como la temperatura, luminosidad, humedad, presencia de humo etc.
+	\item Estos valores medidos constituyen las entradas del sistema difuso basado en reglas, que debe determinar a partir de ellos el \emph{riesgo del incendio}.
+	\item El riesgo de incendio calculado es un valor entre 0\% (no existe riesgo) y 100\% (riesgo muy alto).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Riesgo de incendios forestales: Variables lingüísticas}
+Variables lingüísticas utilizadas por el sistema difuso:
+\\
+\vspace{0.3cm}
+	Entradas (medidas por la red de sensores):
+	\begin{enumerate}
+	   \item \bfseries $\chi_1$ - Temperatura: \normalfont medida en grados centígrados (0ºC a 120ºC).
+	   \item \bfseries $\chi_2$ - Humo: \normalfont medida en partes por millón (0 a 100ppm).
+	   \item \bfseries $\chi_3$ - Luz: \normalfont medida en lux (0 a 1000 lux).
+	   \item \bfseries $\chi_4$ - Humedad: \normalfont medida en partes por millón (0 a 100ppm).
+	   \item \bfseries $\chi_5$ - Distancia: \normalfont medida en metros (0 a 80m).
+	\end{enumerate}
+	\vspace{0.2cm}
+	Salida:
+	\begin{enumerate}
+	   \item \bfseries $y$ - Riesgo de incendio: \normalfont porcentaje (0-100\%).
+	\end{enumerate}
 \end{frame}
 
 \begin{frame}
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[b]{0.45\textwidth}
-		\setlength\figureheight{1.35cm}
-		\setlength\figurewidth{4.5cm}
-		\input{figures/fire-detection-lang-variables/b_temp_lang_variable.tikz}
-		\caption{$\chi_1$ - Temperatura (ºC)}
-		\label{fig:temp-lang-variable}
-		\vspace*{2mm}
-	\end{subfigure}
-	\qquad
-	\begin{subfigure}[b]{0.45\textwidth}
-		\setlength\figureheight{1.35cm}
-		\setlength\figurewidth{4.5cm}
-		\input{figures/fire-detection-lang-variables/b_smoke_lang_variable.tikz}
-		\caption{$\chi_2$ - Humo (ppm)}
-		\label{fig:smoke-lang-variable}
-		\vspace*{2mm}
-	\end{subfigure}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}[b]{0.45\textwidth}
+			\setlength\figureheight{1.35cm}
+			\setlength\figurewidth{4.5cm}
+			\input{figures/fire-detection-lang-variables/b_temp_lang_variable.tikz}
+			\caption{$\chi_1$ - Temperatura (ºC)}
+			\label{fig:temp-lang-variable}
+			\vspace*{2mm}
+		\end{subfigure}
+		\qquad
+		\begin{subfigure}[b]{0.45\textwidth}
+			\setlength\figureheight{1.35cm}
+			\setlength\figurewidth{4.5cm}
+			\input{figures/fire-detection-lang-variables/b_smoke_lang_variable.tikz}
+			\caption{$\chi_2$ - Humo (ppm)}
+			\label{fig:smoke-lang-variable}
+			\vspace*{2mm}
+		\end{subfigure}
+		
+		\begin{subfigure}[b]{0.45\textwidth}
+			\setlength\figureheight{1.35cm}
+			\setlength\figurewidth{4.5cm}
+			\input{figures/fire-detection-lang-variables/b_light_lang_variable.tikz}
+			\caption{$\chi_3$ - Luz (lux)}
+			\label{fig:light-lang-variable}
+			\vspace*{2mm}
+		\end{subfigure}
+		\qquad
+		\begin{subfigure}[b]{0.45\textwidth}
+			\setlength\figureheight{1.35cm}
+			\setlength\figurewidth{4.5cm}
+			\input{figures/fire-detection-lang-variables/b_humidity_lang_variable.tikz}
+			\caption{$\chi_4$ - Humedad (ppm)}
+			\label{fig:humidity-lang-variable}
+			\vspace*{2mm}
+		\end{subfigure}
 	
-	\begin{subfigure}[b]{0.45\textwidth}
-		\setlength\figureheight{1.35cm}
-		\setlength\figurewidth{4.5cm}
-		\input{figures/fire-detection-lang-variables/b_light_lang_variable.tikz}
-		\caption{$\chi_3$ - Luz (lux)}
-		\label{fig:light-lang-variable}
-		\vspace*{2mm}
-	\end{subfigure}
-	\qquad
-	\begin{subfigure}[b]{0.45\textwidth}
-		\setlength\figureheight{1.35cm}
-		\setlength\figurewidth{4.5cm}
-		\input{figures/fire-detection-lang-variables/b_humidity_lang_variable.tikz}
-		\caption{$\chi_4$ - Humedad (ppm)}
-		\label{fig:humidity-lang-variable}
-		\vspace*{2mm}
-	\end{subfigure}
+		\begin{subfigure}[b]{0.45\textwidth}
+			\setlength\figureheight{1.35cm}
+			\setlength\figurewidth{4.5cm}
+			\input{figures/fire-detection-lang-variables/b_distance_lang_variable.tikz}
+			\caption{$\chi_5$ - Distancia (m)}
+			\label{fig:distance-lang-variable}
+			\vspace*{2mm}
+		\end{subfigure}
+		\qquad
+		\begin{subfigure}[b]{0.45\textwidth}
+			\setlength\figureheight{1.35cm}
+			\setlength\figurewidth{4.5cm}
+			\input{figures/fire-detection-lang-variables/b_threat_lang_variable.tikz}
+			\caption{$y$ - Riesgo de incendio (\%)}
+			\label{fig:threat-lang-variable}
+			\vspace*{2mm}
+		\end{subfigure}
+	\end{figure}
+\end{frame}
 
-	\begin{subfigure}[b]{0.45\textwidth}
-		\setlength\figureheight{1.35cm}
-		\setlength\figurewidth{4.5cm}
-		\input{figures/fire-detection-lang-variables/b_distance_lang_variable.tikz}
-		\caption{$\chi_5$ - Distancia (m)}
-		\label{fig:distance-lang-variable}
-		\vspace*{2mm}
-	\end{subfigure}
-	\qquad
-	\begin{subfigure}[b]{0.45\textwidth}
-		\setlength\figureheight{1.35cm}
-		\setlength\figurewidth{4.5cm}
-		\input{figures/fire-detection-lang-variables/b_threat_lang_variable.tikz}
-		\caption{$y$ - Riesgo de incendio (\%)}
-		\label{fig:threat-lang-variable}
-		\vspace*{2mm}
-	\end{subfigure}
-\end{figure}
+\begin{frame}{Riesgo de incendios forestales: Conjunto de reglas}
+\begin{itemize}
+\item Todas las reglas tienen la forma:
+	\scriptsize
+	\begin{multline}
+	\textbf{IF }\chi_1  \text{:Temperatura es }\{L,M,H\} \text{ AND }\chi_2  \text{:Humo es }\{L,M,H\} \text{ AND }\chi_3 \text{:Luz es }\{L,M,H\} \\
+	\text{ AND }\chi_4  \text{:Humedad es }\{L,M,H\} \text{ AND }\chi_5 \text{:Distancia es }\{L,M,H\} \\
+	\textbf{ THEN }y \text{:Riesgo es }\{VL,L,M,H,VH\}
+	\end{multline}
+\item \normalsize Hay que tener en cuenta:
+	\begin{itemize}
+		\item El riesgo es directamente proporcional a la temperatura, humo y luz.
+		\item El riesgo es inversamente proporcional a la humedad y la distancia.
+	\end{itemize}
+\item El conjunto completo de reglas consta de $3^5$ = 243 reglas.
+\item El sistema de inferencia difusa compara las entradas del sistema con los antecedentes de cada una de estas reglas para producir la salida (el riesgo de incendio).
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Riesgo de incendios forestales: resultados}
@@ -447,6 +481,36 @@ $Temp. = 30\text{ºC}$, $Humo = 20 \text{ppm}$, $Luz = 500 \text{lux}$, $Humedad
 	\tiny
 	\input{./tables/table-interpolation-comparison--T30_S20_L500_H50_D40.tex}
 \end{center}
+\end{frame}
+
+\begin{frame}{Riesgo de incendios forestales: resultados (cont.)}
+\begin{itemize}
+	\item El método de interpolación obtiene resultados similares al método clásico de Mamdani.
+	\item En general, se obtienen resultados similares al utilizar diferentes t-normas e índices de solapamiento en el método de interpolación. Los conjuntos de salida pueden diferir, pero los valores desdifusificados son bastante parecidos.
+	\item Las mayores desviaciones se producen al utilizar los desdifusificadores basados en el máximo (especialmente en el método de Mamdani).
+	\item Algunas consideraciones a la hora de seleccionar t-normas:
+		\begin{enumerate}
+			\item T-norma producto: Al multiplicar valores en el intervalo [0,1] se obtienen grados de pertenencia ``muy pequeños'' (del orden de $10^{14}$ en estos ejemplos). Puede producir problemas de precisión en reglas con muchos antecedentes.
+			\item \L{}ukasiewicz: No se puede aplicar a reglas de más de 2 antecedentes. Tiende a 0 muy rápidamente.
+		\end{enumerate}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusiones}
+	\begin{itemize}
+	\item Se ha presentado un nuevo método de inferencia difusa: el \emph{método de interpolación basado en índices de solapamiento}.
+	\item Supone una generalización del método de interpolación clásico.
+	\item Principal característica: Utilización de índices de solapamiento para comparar la premisa con los antecedentes de cada regla.
+	\item Ventaja: permite utilizar diferentes t-normas, índices de solapamiento, y operadores de agregación y comparar los resultados.
+	\item Se ha aplicado este método a un caso práctico: la detección y determinación del riesgo de incendios forestales.
+	\item Se ha comprobado experimentalmente la corrección del método, comparando los resultados obtenidos con el método clásico de Mamdani.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Referencias}
+   {\bibliographystyle{abbrv} }
+    \bibliography{bibliography}
 \end{frame}
 
 \end{document}
