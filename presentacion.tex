@@ -28,6 +28,10 @@
 \let\oldnl\nl% Store \nl in \oldnl
 \newcommand{\nonl}{\renewcommand{\nl}{\let\nl\oldnl}}
 
+% Tablas
+\usepackage{multirow}
+\usepackage{hhline}
+
 % Captions
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
 
@@ -386,6 +390,63 @@ Salida:
 		\vspace*{2mm}
 	\end{subfigure}
 \end{figure}
+\end{frame}
+
+\begin{frame}{Riesgo de incendios forestales: resultados}
+\begin{itemize}
+\item Riesgos de incendio obtenidos al aplicar el método de Mamdani y el método de interpolación basado en índices de solapamiento (con $M = \text{Media aritmética}$, $T = T_{min}$ y $O = O_Z$) a las entradas:
+	\begin{enumerate}
+		\item Temperatura: 30ºC.
+		\item Humo: 20ppm.
+		\item Luz: 500lux.
+		\item Humedad: 50ppm.
+		\item Distancia: 40m.
+	\end{enumerate}
+\end{itemize}
+\vspace{0.2cm}
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+		\caption{Mamdani}
+		\setlength\figureheight{2cm}
+		\setlength\figurewidth{4.25cm}
+		\input{figures/fire-detection-results/example/mamdani-T30_S20_L500_H50_D40.tikz}
+	\end{subfigure}
+	\qquad
+	\begin{subfigure}[b]{0.45\textwidth}
+		\caption{Método de interpolación}
+		\setlength\figureheight{2cm}
+		\setlength\figurewidth{4.25cm}
+		\input{figures/fire-detection-results/example/interpolation-O-Oz_Tmin_Mmean--T30_S20_L500_H50_D40.tikz}
+	\end{subfigure}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Riesgo de incendios forestales: resultados (cont.)}
+Riesgos de incendio para diferentes entradas: \\
+\vspace{0.3cm}
+\textbf{Método de Mamdani}
+\begin{center}
+	\tiny
+	\input{./tables/table-mamdani-examples.tex}
+\end{center}
+\vspace{0.5cm}
+\textbf{Método de interpolación basado en índices de solapamiento} \\
+{\footnotesize   ($M = \text{Media aritmética}$, $T = T_{min}$ y $O = O_Z$)}
+\begin{center}
+	\tiny
+    \input{./tables/table-interpolation-examples.tex}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\centering
+\footnotesize
+$Temp. = 30\text{ºC}$, $Humo = 20 \text{ppm}$, $Luz = 500 \text{lux}$, $Humedad = 50 \text{ppm}$ y $Dist. = 40 \text{m}$
+\begin{center}
+	\tiny
+	\input{./tables/table-interpolation-comparison--T30_S20_L500_H50_D40.tex}
+\end{center}
 \end{frame}
 
 \end{document}
