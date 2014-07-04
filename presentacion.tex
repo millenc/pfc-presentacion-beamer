@@ -247,9 +247,59 @@ Algunos ejemplos de construcción de índices de solapamiento:
 
 \section{Lógica difusa}
 
-\subsection{Método de Mamdani}
+\begin{frame}{Lógica difusa}
+	\begin{itemize}
+		\item Introducida por Lofti A. Zadeh en 1965.
+		\item Extensión de la lógica clásica que utiliza conjuntos difusos para modelar conceptos vagos o imprecisos (usando variables lingüísticas).
+		\item En la lógica proposicional clásica (modus ponens):
+		\begin{equation}
+				\begin{array}{rl}
+				    & p \\
+				    & p \to q \\
+				    \cline{2-2}
+				    & q
+				  \end{array}
+		\end{equation}
+		si \emph{p} es verdadera entonces se da \emph{q}. Esta regla de inferencia clásica no permite que si la premisa es: \emph{p'} (aproximadamente \emph{p}), entonces \emph{q'} (aproximadamente \emph{q}):
 
-\begin{frame}{Método de Mamdani}
+		\item Solución: \emph{sistemas difusos basados en reglas}.
+	\end{itemize}
+\end{frame}
+
+\subsection{Sistemas difusos basados en reglas}
+\begin{frame}{Sistemas difusos basados en reglas}
+	\begin{itemize}
+		\item Los sistemas difusos basados en reglas utilizan estructuras condicionales (reglas) de la forma:
+		\begin{equation}
+		\text{IF $x_{1}$ es $A_{1}$ $\odot$ $x_{2}$ es $A_{2}$ $\odot$ \ldots $\odot$ $x_{n}$ es $A_{n}$ THEN $y$ es $B$}
+		\end{equation}
+		donde $x_{1} \in U_{i}$,\ldots, $x_{n} \in U_{n}$,$y \in V$ son variables lingüísticas y $\odot$ algún conectivo difuso (AND,OR,AND NOT,etc.).
+		
+		\item Ejemplo: 
+		\begin{multline}
+		\text{IF \emph{Temperatura} es ``Alta'' AND \emph{Humedad} es ``Baja''}	\\
+		\text{THEN \emph{Riesgo de incendio} es ``Alto''}
+		\end{multline}
+		\item Las reglas difusas permiten modelar el conocimiento sobre el problema a resolver y calcular las salidas adecuadas para las entradas.
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Sistemas difusos basados en reglas (cont.)}
+\begin{itemize}
+\item \textbf{Entradas}: Entradas escalares ($x'$) en algún universo de referencia ($U$).
+\item \textbf{Difusificador}: Transforma las entradas escalares en conjuntos difusos.
+\item \textbf{Conjunto de reglas}: Reglas IF-THEN que especifican cómo transformar las entradas en salidas (dependiente del problema).
+\item \textbf{Sistema de inferencia difusa}: Algoritmo que transforma las entradas en salidas, utilizando el conjunto de reglas.
+\item \textbf{Desdifusificador}: Transforma el conjunto difuso de salida en un valor escalar.
+\end{itemize}
+\scriptsize
+\input{figures/fuzzy-system.tikz}
+\end{frame}
+
+
+\subsection{Método de Mamdani}
+\begin{frame}{Inferencia difusa: Método de Mamdani}
 Propuesto por Mamdani y Assilian en 1975 \cite{Mamdani1975} para realizar el control de un motor de vapor a partir de un conjunto de reglas obtenidas de operadores humanos experimentados:
 
 \begin{block}{Algoritmo: Método de Mamdani}
@@ -272,7 +322,7 @@ Propuesto por Mamdani y Assilian en 1975 \cite{Mamdani1975} para realizar el con
 \end{frame}
 
 \subsection{Método de interpolación}
-\begin{frame}{Método de interpolación}
+\begin{frame}{Inferencia difusa: Método de interpolación}
 \begin{itemize}
 \item Históricamente uno de los métodos más utilizados para resolver sistemas basados en reglas ha sido el \emph{método de interpolación}.
 \item  En este método se utiliza la consistencia de Zadeh $O_{Z}(A,B) = \max\limits_{i=1}^{n}(\min(\mu_A(x_i),\mu_B(x_i)))$.
@@ -295,7 +345,7 @@ Propuesto por Mamdani y Assilian en 1975 \cite{Mamdani1975} para realizar el con
 \end{block}
 \end{frame}
 
-\begin{frame}{Método de interpolación (cont.)}
+\begin{frame}{Inferencia difusa: Método de interpolación (cont.)}
 El método de interpolación se puede generalizar para utilizar cualquier índice de solapamiento y reglas con varios antecedentes \cite{bustince2013overlap}:
 \begin{block}{Método de interpolación basado en índices de solapamiento}
 	\scalebox{0.80}{
