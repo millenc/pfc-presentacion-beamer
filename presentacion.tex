@@ -325,6 +325,21 @@ Algunos ejemplos de construcción de índices de solapamiento:
 	\end{figure}
 \end{frame}
 
+\begin{frame}{Sistemas difusos basados en reglas:Desdifusificadores}
+\begin{itemize}
+  \item\bfseries Centroide: \normalfont Obtiene el centro de gravedad de la curva.
+  \begin{equation}
+	y^* = \frac{\int_V y \mu_{B'}(y)dy}{\int_V \mu_{B'}(y)dy}
+  \end{equation}
+  \item\bfseries Bisector: \normalfont Obtiene el punto por el que pasa la línea que divide la región delimitada por la función de pertenencia de $B'$ y el eje de abscisas, en dos subsecciones de igual área:
+  \begin{equation}
+	y^*\text{ tal que: } \int\limits_{y_0}^{y^*}\mu_{B'}(y)dy = \int\limits_{y^*}^{y_n}\mu_{B'}(y)dy
+  \end{equation}
+  \item\bfseries Menor de máximos (SOM, \emph{smallest of maximum}).
+  \item\bfseries Mayor de máximos (LOM, \emph{largest of maximum}).
+  \item\bfseries Media de máximos (MOM, \emph{mean of maximum}).
+\end{itemize}
+\end{frame}
 
 \subsection{Método de Mamdani}
 \begin{frame}{Inferencia difusa: Método de Mamdani}
