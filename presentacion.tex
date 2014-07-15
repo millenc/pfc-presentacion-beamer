@@ -523,6 +523,38 @@ Riesgos de incendio para diferentes entradas: \\
 \end{center}
 \end{frame}
 
+\begin{frame}{Riesgo de incendios forestales: resultados (cont.)}
+\begin{itemize}
+\item Es posible combinar diferentes índices de solapamiento y t-normas:
+\end{itemize}
+\begin{columns}[T] % align columns
+\begin{column}{.48\textwidth}
+Índices de solapamiento:
+\footnotesize
+\begin{itemize}
+	\item \bfseries Media de productos: \\ $O_{\pi}(A,B) = \frac{1}{n}\sum_{i=1}^{n}\mu_A(x_i)*\mu_B(x_i)$
+	\item \bfseries Media de mínimos: \\ $O_{avgmin}(A,B) = \frac{1}{n}\sum_{i=1}^{n}\min(\mu_A(x_i),\mu_B(x_i))$
+	\item \bfseries Máximo de mínimos: \\ $O_{Z}(A,B) = \max\limits_{i=1}^{n}(\min(\mu_A(x_i),\mu_B(x_i)))$
+	\item \bfseries Media de raíces cuadradas: \\ $O_{\sqrt{\text{ }}}(A,B) =  \frac{1}{n}\sum_{i=1}^{n}\sqrt{\mu_A(x_i)*\mu_B(x_i)}$
+	\item \bfseries Media del seno:  \\ $O_{sin}(A, B) = \frac{1}{n}\sum_{i=1}^{n}\sin(\frac{\pi}{2}(\mu_A(x_i)*\mu_B(x_i)))^{\frac{1}{4}}$
+\end{itemize}
+\end{column}%
+\hfill%
+\begin{column}{.48\textwidth}
+T-normas:
+\footnotesize
+\begin{itemize}
+	\item \bfseries Mínimo: \\ $T_{min}(x_{1},\cdots,x_{n}) = \min\{x_{1},\cdots,x_{n}\}$
+	\item \bfseries Producto:\\ $T_{prod}(x_{1},\cdots,x_{n}) = x_{1} * \cdots * x_{n}$
+	\item \bfseries Media geométrica:\\ $T_{geo}(x_{1},\cdots,x_{n}) = (\prod\limits_{i=1}^{n}x_{i})^{\frac{1}{n}}$
+	\item \bfseries Media armónica:\\ $T_{harm}(x_{1},\cdots,x_{n}) = \frac{n}{\sum_{i=1}^{n}\frac{1}{x_i}}$
+	\item \bfseries Seno:\\ $T_{sin}(x_{1},\cdots,x_{n}) = \frac{1}{n}\sin(\frac{\pi}{2}(x_1 * \ldots * x_n))^{\frac{1}{4}}$
+	\item \bfseries Einstein:\\ $T_{einstein}(x_{1},\cdots,x_{n}) = \frac{(x_{1} * \cdots * x_{n})}{1 + (1 - x_{1} )* \ldots * (1 - x_{n} )}$
+\end{itemize}
+\end{column}%
+\end{columns}
+\end{frame}
+
 \begin{frame}
 \centering
 \footnotesize
