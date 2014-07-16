@@ -36,7 +36,7 @@
 % Captions
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
 
-\title[Detección de riesgos ambientales]{Aplicación de un método de interpolación basado en índices de solapamiento a la detección de riesgos ambientales}
+\title[Detección de riesgos ambientales]{Aplicación de un método de interpolación, basado en índices de solapamiento, a la detección de riesgos ambientales}
 \author{Mikel Pintor Araus}
 \institute[UPNA]
 {
@@ -70,6 +70,7 @@
       	\item Introducidos por L.A. Zadeh en 1965.
       	\item Extensión de los conjuntos clásicos.
       	\item Permiten modelar información vaga o imprecisa.
+      	\item Nota: Se puede utilizar también la notación $A(u_{i})$ para referirse al valor de la función de pertenencia del elemento $u_{i}$ en $A$ ($\mu_{A}(u_{i}) = A(u_{i})$).
       	\end{itemize}
 \end{frame}
 
@@ -89,7 +90,7 @@
 
 \begin{frame}{T-normas: algunos ejemplos}
 	\begin{itemize}
-		\item \bfseries Mínimo o t-norma de Gödel: $T_{G}(x,y) = \min\{x,y\}$
+		\item \bfseries Mínimo: $T_{G}(x,y) = \min\{x,y\}$
 		\item \bfseries Producto: $T_{P}(x,y) = x \cdot y$
 		\item \bfseries \L{}ukasiewicz: $T_{L}(x,y) = \max\{x+y-1,0\}$
 	\end{itemize}
@@ -124,7 +125,6 @@
 
 \subsection{Funciones de solapamiento}
 \begin{frame}{Funciones de solapamiento}
-Las funciones de solapamiento generalizan los operadores de intersección tales como el mínimo o, en general, las t-normas:
 	\begin{block}{Definición: función de solapamiento}
 	Una función de solapamiento es una función $G_{O} : [0,1]^{2} \rightarrow [0,1]$ que cumple:
 	\begin{enumerate}
@@ -195,7 +195,7 @@ Las funciones de solapamiento generalizan los operadores de intersección tales 
 \subsection{Índices de solapamiento}
 \begin{frame}{Índices de solapamiento}
 	\begin{block}{Definición: índice de solapamiento}
-		Un índice de solapamiento es una función $O : FS(U) \times FS(U) \rightarrow [0,1]$ tal que:
+		Un índice de solapamiento es una función $O : FS(U) \times FS(U) \rightarrow [0,1]$ (donde $FS(U)$ es el conjunto de todos los conjuntos difusos sobre $U$) tal que:
 		\begin{enumerate}
 		\item $O(A,B) = 0$ si y sólo si A y B tienen soportes disjuntos, es decir: 
 			\begin{equation}
@@ -206,8 +206,8 @@ Las funciones de solapamiento generalizan los operadores de intersección tales 
 		\end{enumerate}
 	\end{block}
 	\begin{itemize}
-		\item Los índices de solapamiento proporcionan una medida de similaridad entre dos conjuntos difusos.
-		\item Muy útiles para determinar ``cómo de parecidos'' son dos conjuntos difusos.
+		\item Los índices de solapamiento proporcionan una medida del solapamiento entre dos conjuntos difusos.
+		\item Muy útiles para determinar ``cómo de coincidentes'' son dos conjuntos difusos.
 	\end{itemize}
 \end{frame}
 
@@ -217,7 +217,7 @@ Las funciones de solapamiento generalizan los operadores de intersección tales 
 			\item Sea $M : [0,1]^{2} \rightarrow [0,1]$ una función de agregación tal que $M(x_{1},\cdots,x_{n}) = 0$ si y sólo si $x_{1} = \cdots = x_{n} = 0$
 			\item Sea $G_{O} : [0,1]^{2} \rightarrow [0,1]$ una función de solapamiento.
 		\end{enumerate}
-		Entonces, la función $O: F(U) \times F(U) \rightarrow [0,1]$ definida como:
+		Entonces, la función $O: FS(U) \times FS(U) \rightarrow [0,1]$ definida como:
 		\begin{equation}
 		O(A,B) = M(G_{O}(A(u_{1}),B(u_{1})),\cdots,G_{O}(A(u_{n}),B(u_{n})))
 		\end{equation}
@@ -240,9 +240,9 @@ Algunos ejemplos de construcción de índices de solapamiento:
 	%\begin{equation}
 	%O_{\sqrt{\text{ }}}(A,B) =  \frac{1}{n}\sum_{i=1}^{n}\sqrt{\mu_A(x_i)*\mu_B(x_i)}
 	%\end{equation}
-	\item Si $M = \text{Media aritmética}$ y $G_O = \sin(\frac{\pi}{2}(x \cdot y))^{\frac{1}{4}}$:
+	\item Si $M = \text{Media aritmética}$ y $G_O = \sin(\frac{\pi}{2}(x \cdot y)^{\frac{1}{4}})$:
 	\begin{equation}
-	O_{sin}(A, B) = \frac{1}{n}\sum_{i=1}^{n}\sin(\frac{\pi}{2}(\mu_A(x_i) \cdot \mu_B(x_i)))^{\frac{1}{4}}
+	O_{sin}(A, B) = \frac{1}{n}\sum_{i=1}^{n}\sin(\frac{\pi}{2}(\mu_A(x_i) \cdot \mu_B(x_i))^{\frac{1}{4}})
 	\end{equation}
 \end{itemize}
 \end{frame}
@@ -290,18 +290,18 @@ Algunos ejemplos de construcción de índices de solapamiento:
 \begin{frame}{Sistemas difusos basados en reglas (cont.)}
 \begin{itemize}
 \item \textbf{Entradas}: Entradas escalares ($x'$) en algún universo de referencia ($U$).
-\item \textbf{Difusificador}: Transforma las entradas escalares en conjuntos difusos.
+\item \textbf{Fusificador}: Transforma las entradas escalares en conjuntos difusos.
 \item \textbf{Conjunto de reglas}: Reglas IF-THEN que especifican cómo transformar las entradas en salidas (dependiente del problema).
 \item \textbf{Sistema de inferencia difusa}: Algoritmo que transforma las entradas en salidas, utilizando el conjunto de reglas.
-\item \textbf{Desdifusificador}: Transforma el conjunto difuso de salida en un valor escalar.
+\item \textbf{Defusificador}: Transforma el conjunto difuso de salida en un valor escalar.
 \end{itemize}
 \scriptsize
 \input{figures/fuzzy-system.tikz}
 \end{frame}
 
-\begin{frame}{Sistemas difusos basados en reglas: difusificadores}
+\begin{frame}{Sistemas difusos basados en reglas: Fusificadores}
 \begin{itemize}
-\item Los difusificadores son funciones que transformas las entradas escalares en conjuntos difusos:
+\item Los fusificadores son funciones que transformas las entradas escalares en conjuntos difusos:
 \end{itemize}
 	\begin{figure}
 	\begin{subfigure}{0.45\textwidth}
@@ -327,15 +327,15 @@ Algunos ejemplos de construcción de índices de solapamiento:
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Sistemas difusos basados en reglas:Desdifusificadores}
+\begin{frame}{Sistemas difusos basados en reglas: Defusificadores}
 \begin{itemize}
   \item\bfseries Centroide: \normalfont Obtiene el centro de gravedad de la curva.
   \begin{equation}
-	y^* = \frac{\int_V y \mu_{B'}(y)dy}{\int_V \mu_{B'}(y)dy}
+	y^* = \frac{\sum y \mu_{B'}(y)}{\sum \mu_{B'}(y)}
   \end{equation}
   \item\bfseries Bisector: \normalfont Obtiene el punto por el que pasa la línea que divide la región delimitada por la función de pertenencia de $B'$ y el eje de abscisas, en dos subsecciones de igual área:
   \begin{equation}
-	y^*\text{ tal que: } \int\limits_{y_0}^{y^*}\mu_{B'}(y)dy = \int\limits_{y^*}^{y_n}\mu_{B'}(y)dy
+	y^*\text{ tal que: } \sum\limits_{y=y_0}^{y=y^*}\mu_{B'}(y) = \sum\limits_{y=y^*}^{y=y_n}\mu_{B'}(y)
   \end{equation}
   \item\bfseries Menor de máximos (SOM, \emph{smallest of maximum}).
   \item\bfseries Mayor de máximos (LOM, \emph{largest of maximum}).
@@ -581,7 +581,7 @@ Riesgos de incendio para diferentes entradas: \\
 	\item \bfseries Media de mínimos: \\ $O_{avgmin}(A,B) = \frac{1}{n}\sum_{i=1}^{n}\min(\mu_A(x_i),\mu_B(x_i))$
 	\item \bfseries Máximo de mínimos: \\ $O_{Z}(A,B) = \max\limits_{i=1}^{n}(\min(\mu_A(x_i),\mu_B(x_i)))$
 	\item \bfseries Media de raíces cuadradas: \\ $O_{\sqrt{\text{ }}}(A,B) =  \frac{1}{n}\sum_{i=1}^{n}\sqrt{\mu_A(x_i)*\mu_B(x_i)}$
-	\item \bfseries Media del seno:  \\ $O_{sin}(A, B) = \frac{1}{n}\sum_{i=1}^{n}\sin(\frac{\pi}{2}(\mu_A(x_i)*\mu_B(x_i)))^{\frac{1}{4}}$
+	\item \bfseries Media del seno:  \\ $O_{sin}(A, B) = \frac{1}{n}\sum_{i=1}^{n}\sin(\frac{\pi}{2}(\mu_A(x_i)*\mu_B(x_i))^{\frac{1}{4}})$
 \end{itemize}
 \end{column}%
 \hfill%
@@ -613,8 +613,8 @@ $Temp. = 30\text{ºC}$, $Humo = 20 \text{ppm}$, $Luz = 500 \text{lux}$, $Humedad
 \begin{frame}{Riesgo de incendios forestales: resultados (cont.)}
 \begin{itemize}
 	\item El método de interpolación obtiene resultados similares al método clásico de Mamdani.
-	\item En general, se obtienen resultados similares al utilizar diferentes t-normas e índices de solapamiento en el método de interpolación. Los conjuntos de salida pueden diferir, pero los valores desdifusificados son bastante parecidos.
-	\item Las mayores desviaciones se producen al utilizar los desdifusificadores basados en el máximo (especialmente en el método de Mamdani).
+	\item En general, se obtienen resultados similares al utilizar diferentes t-normas e índices de solapamiento en el método de interpolación. Los conjuntos de salida pueden diferir, pero los valores defusificados son bastante parecidos.
+	\item Las mayores desviaciones se producen al utilizar los defusificadores basados en el máximo (especialmente en el método de Mamdani).
 	\item Algunas consideraciones a la hora de seleccionar t-normas:
 		\begin{enumerate}
 			\item T-norma producto: Al multiplicar valores en el intervalo [0,1] se obtienen grados de pertenencia ``muy pequeños'' (del orden de $10^{14}$ en estos ejemplos). Puede producir problemas de precisión en reglas con muchos antecedentes.
@@ -630,6 +630,7 @@ $Temp. = 30\text{ºC}$, $Humo = 20 \text{ppm}$, $Luz = 500 \text{lux}$, $Humedad
 	\item Supone una generalización del método de interpolación clásico.
 	\item Principal característica: Utilización de índices de solapamiento para comparar la premisa con los antecedentes de cada regla.
 	\item Ventaja: permite utilizar diferentes t-normas, índices de solapamiento, y operadores de agregación y comparar los resultados.
+	\item El método basado en índices de solapamiento produce mejores resultados, dado que la combinación convexa de índices de solapamiento es un índice de solapamiento.
 	\item Se ha aplicado este método a un caso práctico: la detección y determinación del riesgo de incendios forestales.
 	\item Se ha comprobado experimentalmente la corrección del método, comparando los resultados obtenidos con el método clásico de Mamdani.
 	\end{itemize}

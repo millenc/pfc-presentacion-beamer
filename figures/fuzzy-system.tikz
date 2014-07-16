@@ -37,10 +37,10 @@
 \shorthandoff{>}
 \begin{tikzpicture}[auto, node distance=2cm,>=latex']
 \node [input, name=input] {};
-\node [state-small, right of=input,node distance=1.7cm,align=left] (fuzzifier) {Difusificar};
+\node [state-small, right of=input,node distance=1.7cm,align=left] (fuzzifier) {Fusificar};
 \node [state, right of=fuzzifier,node distance=4.4cm,align=left] (inference-engine) {Sistema de inferencia difusa};
 \node [state, above of=inference-engine] (rule-base) {Conjunto de reglas difusas};
-\node [state-small, right of=inference-engine,node distance=4.4cm,align=left] (defuzzifier) {Desdifusificar};
+\node [state-small, right of=inference-engine,node distance=4.4cm,align=left] (defuzzifier) {Defusificar};
 \node [output, right of=defuzzifier,node distance=1.8cm] (output) {};
 
 \draw [->] (input) -- node {$x' \in U$} (fuzzifier);
