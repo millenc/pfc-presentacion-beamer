@@ -49,6 +49,10 @@
  
 \begin{frame}
   \titlepage
+  \scriptsize
+  \hfill Tutores: \\
+  \hfill Humberto Bustince \\
+  \hfill Francisco Javier Fernández
 \end{frame}
 
 \begin{frame}{Índice}  
@@ -368,8 +372,9 @@ Propuesto por Mamdani y Assilian en 1975 \cite{Mamdani1975} para realizar el con
 
 \subsection{Método de interpolación}
 \begin{frame}{Inferencia difusa: Método de interpolación}
+\small
 \begin{itemize}
-\item Históricamente uno de los métodos más utilizados para resolver sistemas basados en reglas ha sido el \emph{método de interpolación}.
+\item Históricamente uno de los métodos más utilizados para resolver sistemas basados en reglas ha sido el \emph{método de interpolación}, desarrollado por Kóczy en 1993.
 \item  En este método se utiliza la consistencia de Zadeh $O_{Z}(A,B) = \max\limits_{i=1}^{n}(\min(\mu_A(x_i),\mu_B(x_i)))$.
 \end{itemize}
 \begin{block}{Algoritmo: Método de interpolación}
@@ -390,18 +395,19 @@ Propuesto por Mamdani y Assilian en 1975 \cite{Mamdani1975} para realizar el con
 \end{block}
 \end{frame}
 
-\begin{frame}{Inferencia difusa: Método de interpolación (cont.)}
-El método de interpolación se puede generalizar para utilizar cualquier índice de solapamiento y reglas con varios antecedentes \cite{bustince2013overlap}:
-\begin{block}{Método de interpolación basado en índices de solapamiento}
-	\scalebox{0.80}{
+\begin{frame}{Inferencia difusa: Nuevo método de interpolación}
+\small
+\textbf{Nuevo método}: El método de interpolación se puede generalizar para utilizar cualquier índice de solapamiento y reglas con varios antecedentes \cite{bustince2013overlap}:
+\begin{block}{Nuevo método de interpolación basado en índices de solapamiento}
+	\scalebox{0.95}{
 		\begin{algorithm}[H]
 		\DontPrintSemicolon
 		\KwIn{Un conjunto de reglas $R_{j}$ con varios antecedentes, con $j \in \{1,\ldots,n\}$ y un hecho \emph{A'}.}
 		\KwOut{\emph{B'}.}
 		Seleccionar un operador de agregación $M$, una t-norma \emph{T} y un índice de solapamiento \emph{O}.\\
 		\For{$i =1 \to n$} {
-		Calcular $O(A'_{i}, A_{i1}),\ldots,O(A'_{m}, A_{im})$\\
-		Calcular $k_{i} = T(O(A'_{i}, A_{i1}),\ldots,O(A'_{m}, A_{im}))$\\
+		Calcular $O(A'_{1}, A_{i1}),\ldots,O(A'_{m}, A_{im})$\\
+		Calcular $k_{i} = T(O(A'_{1}, A_{i1}),\ldots,O(A'_{m}, A_{im}))$\\
 		Construir sobre el universo de referencia \emph{Y} el conjunto $K_{i} = \{(y,k_{i})|y \in Y\}$
 		}
 		Construir $B' = \{(y, B'(y))|y \in Y\}$ dado por: \\
